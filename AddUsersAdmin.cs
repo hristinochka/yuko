@@ -19,10 +19,10 @@ namespace Diploma
                 dataListView.Items.Clear();
             }
 
-            List<List<string>> values = DB.loadDataFromNameOfEquipmentAdmin();
+            List<List<string>> values = DB.loadDataFromUsersAdmin();
             foreach (var value in values)
             {
-                dataListView.Items.Add(new ListViewItem(new string[] { value[0], value[1] }));
+                dataListView.Items.Add(new ListViewItem(new string[] { value[0], value[1], value[2] }));
             }
         }
         private void loadInfoToCombobox1()

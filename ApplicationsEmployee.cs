@@ -32,7 +32,7 @@ namespace Diploma
                 comboBox1.Items.Clear();
             }
 
-            List<string> values = DB.loadDataFromJobStatusMaster();
+            List<string> values = DB.loadDataFromJobStatusEmployee();
             foreach (var value in values)
             {
                 comboBox1.Items.Add(value.ToString());

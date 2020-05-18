@@ -139,6 +139,20 @@ namespace Diploma
             connection.Close();
             return result;
         }
+        public static List<string> loadDataFromJobStatusEmployee()
+        {
+            List<string> result = new List<string>();
+            SqlConnection connection = getConnection();
+            SqlCommand command = new SqlCommand("SELECT NameSJ FROM JobStatus", connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                result.Add(reader["NameSJ"].ToString());
+            }
+            connection.Close();
+            return result;
+        }
         //ДЛЯ УЧЕТНОЙ ЗАПИСИ MASTER
         public static List<List<string>> loadDataFromEquipmentMaster()
         {
@@ -247,16 +261,16 @@ namespace Diploma
             connection.Close();
             return result;
         }
-        public static List<string> loadDataFromJobStatusMaster()
+        public static List<string> loadDataFromApplicationStatusMaster()
         {
             List<string> result = new List<string>();
             SqlConnection connection = getConnection();
-            SqlCommand command = new SqlCommand("SELECT NameSJ FROM JobStatus", connection);
+            SqlCommand command = new SqlCommand("SELECT NameAJ FROM ApplicationStatus", connection);
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                result.Add(reader["NameSJ"].ToString());
+                result.Add(reader["NameAJ"].ToString());
             }
             connection.Close();
             return result;
@@ -295,6 +309,41 @@ namespace Diploma
             return result;
         }
         //ДЛЯ УЧЕТНОЙ ЗАПИСИ ADMIN
+        public static List<string> loadDataFromPositionAdmin()
+        {
+            List<string> result = new List<string>();
+            SqlConnection connection = getConnection();
+            SqlCommand command = new SqlCommand("SELECT NamePos FROM Position", connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                result.Add(reader["NamePos"].ToString());
+            }
+            connection.Close();
+            return result;
+        }
+        public static List<List<string>> loadDataFromEquipmentAdmin()
+        {
+            List<List<string>> result = new List<List<string>>();
+            SqlConnection connection = getConnection();
+            SqlCommand command = new SqlCommand("SELECT id_equip, NameType, NameEquip, brandequip, workplace, inventorynumber, NameApp FROM Equipment JOIN NameOfEquipment ON Equipment.id_nameofequip=NameOfEquipment.id_nameofequip JOIN Applying ON Applying.id_applying=Equipment.id_applying JOIN TypeOfEquipment ON TypeOfEquipment.id_type=Equipment.id_type", connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                result.Add(new List<string>());
+                result[result.Count - 1].Add(reader["id_equip"].ToString());
+                result[result.Count - 1].Add(reader["NameType"].ToString());
+                result[result.Count - 1].Add(reader["NameEquip"].ToString());
+                result[result.Count - 1].Add(reader["brandequip"].ToString());
+                result[result.Count - 1].Add(reader["workplace"].ToString());
+                result[result.Count - 1].Add(reader["inventorynumber"].ToString());
+                result[result.Count - 1].Add(reader["NameApp"].ToString());
+            }
+            connection.Close();
+            return result;
+        }
         public static List<List<string>> loadDataFromTypeOfEquipmentAdmin()
         {
             List<List<string>> result = new List<List<string>>();
@@ -370,23 +419,6 @@ namespace Diploma
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public static List<List<string>> loadDataFromUsersAdmin()
-        {
-            List<List<string>> result = new List<List<string>>();
-            SqlConnection connection = getConnection();
-            SqlCommand command = new SqlCommand("SELECT id_user, fullname, NamePos FROM Users JOIN Position ON Users.id_pos=Position.id_pos", connection);
-            connection.Open();
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                result.Add(new List<string>());
-                result[result.Count - 1].Add(reader["id_user"].ToString());
-                result[result.Count - 1].Add(reader["fullname"].ToString());
-                result[result.Count - 1].Add(reader["NamePos"].ToString());
-            }
-            connection.Close();
-            return result;
-        }
         public static void addDataToUsersAdmin(string NameApp, string NamePos)
         {
             SqlConnection connection = getConnection();
@@ -396,20 +428,6 @@ namespace Diploma
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
-        }
-        public static List<string> loadDataFromPositionAdmin()
-        {
-            List<string> result = new List<string>();
-            SqlConnection connection = getConnection();
-            SqlCommand command = new SqlCommand("SELECT fullname FROM Users", connection);
-            connection.Open();
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                result.Add(reader["fullname"].ToString());
-            }
-            connection.Close();
-            return result;
         }
         public static List<List<string>> loadDataFromApplicationsAdmin()
         {
@@ -429,6 +447,23 @@ namespace Diploma
                 result[result.Count - 1].Add(reader["applicationdate"].ToString());
                 result[result.Count - 1].Add(reader["datestart"].ToString());
                 result[result.Count - 1].Add(reader["dateend"].ToString());
+            }
+            connection.Close();
+            return result;
+        }
+        public static List<List<string>> loadDataFromUsersAdmin()
+        {
+            List<List<string>> result = new List<List<string>>();
+            SqlConnection connection = getConnection();
+            SqlCommand command = new SqlCommand("SELECT id_user, fullname, NamePos FROM Users JOIN Position ON Users.id_pos=Position.id_pos", connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                result.Add(new List<string>());
+                result[result.Count - 1].Add(reader["id_user"].ToString());
+                result[result.Count - 1].Add(reader["fullname"].ToString());
+                result[result.Count - 1].Add(reader["NamePos"].ToString());
             }
             connection.Close();
             return result;

@@ -31,7 +31,8 @@ namespace Diploma
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            AddApplyingAdmin addApplyingAdmin = new AddApplyingAdmin(this);
+            addApplyingAdmin.Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
