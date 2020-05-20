@@ -58,7 +58,7 @@ namespace Diploma
             connection.Close();
             return result;
         }
-        public static void addDataToApplicationsEmployee(string id_equip, string id_job, string id_user, string applicationdate)
+        public static void addDataToApplicationsEmployee(string id_equip, string id_job, string id_user, DateTime applicationdate)
         {
             SqlConnection connection = getConnection();
             SqlCommand command = new SqlCommand("INSERT INTO Applications VALUES(@id_equip, @id_job, @id_user, @applicationdate)", connection);
@@ -275,17 +275,17 @@ namespace Diploma
             connection.Close();
             return result;
         }
-        public static void addDataToApplicationsMaster(string id_app, DateTime datestart, DateTime dateend)
+        public static void updateDataToApplicationsMaster(string NameAJ, DateTime datestart, DateTime dateend)
         {
             SqlConnection connection = getConnection();
-            SqlCommand command = new SqlCommand("INSERT INTO Applications VALUES(@id_app, @datestart, @dateend)", connection);
-            command.Parameters.AddWithValue("@id_app", id_app);
+            SqlCommand command = new SqlCommand("UPDATE TABLE Applications SET NameAJ=@NameAJ, datestart=@datestart, dateend=@dateend)", connection);
+            command.Parameters.AddWithValue("@NameAJ", NameAJ);
             command.Parameters.AddWithValue("@datestart", datestart);
             command.Parameters.AddWithValue("@dateend", dateend);
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
-        }
+        } 
         public static List<List<string>> loadDataFromArchiveApplicationsMaster()
         {
             List<List<string>> result = new List<List<string>>();
@@ -369,6 +369,14 @@ namespace Diploma
             command.ExecuteNonQuery();
             connection.Close();
         }
+        public static void deleteDataFromTypeOfEquipmentAdmin(string NameType)
+        {
+            SqlConnection connection = getConnection();
+            SqlCommand command = new SqlCommand("DELETE FROM TypeOfEquipment WHERE NameType = @NameType", connection);
+            command.Parameters.AddWithValue("@NameType", NameType);
+            connection.Open();
+            command.ExecuteNonQuery();
+        }
         public static List<List<string>> loadDataFromNameOfEquipmentAdmin()
         {
             List<List<string>> result = new List<List<string>>();
@@ -394,6 +402,14 @@ namespace Diploma
             command.ExecuteNonQuery();
             connection.Close();
         }
+        public static void deleteDataFromNameOfEquipmentAdmin(string NameEquip)
+        {
+            SqlConnection connection = getConnection();
+            SqlCommand command = new SqlCommand("DELETE FROM NameOfEquipment WHERE NameEquip = @NameEquip", connection);
+            command.Parameters.AddWithValue("@NameEquip", NameEquip);
+            connection.Open();
+            command.ExecuteNonQuery();
+        }
         public static List<List<string>> loadDataFromApplyingAdmin()
         {
             List<List<string>> result = new List<List<string>>();
@@ -418,6 +434,14 @@ namespace Diploma
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
+        }
+        public static void deleteDataFromApplyingAdmin(string NameApp)
+        {
+            SqlConnection connection = getConnection();
+            SqlCommand command = new SqlCommand("DELETE FROM Applying WHERE NameApp = @NameApp", connection);
+            command.Parameters.AddWithValue("@NameApp", NameApp);
+            connection.Open();
+            command.ExecuteNonQuery();
         }
         public static void addDataToUsersAdmin(string NameApp, string NamePos)
         {

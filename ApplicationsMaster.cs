@@ -46,12 +46,12 @@ namespace Diploma
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectionLength == 0)
+            if (comboBox1.SelectedIndex == -1)
             {
                 MessageBox.Show("Enter value");
                 return;
             }
-            DB.addDataToApplicationsMaster(comboBox1.Text, dateTimePicker1.Value, dateTimePicker2.Value);
+            DB.updateDataToApplicationsMaster(comboBox1.Text, dateTimePicker1.Value, dateTimePicker2.Value);
             loadInfoToTable();
         }
 

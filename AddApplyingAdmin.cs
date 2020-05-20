@@ -35,11 +35,19 @@ namespace Diploma
         {
             DB.addDataToApplyingAdmin(textBox1.Text);
             loadInfoToTable();
+            textBox1.Clear();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DB.deleteDataFromApplyingAdmin(textBox1.Text);
+            loadInfoToTable();
+            textBox1.Clear();
         }
     }
 }

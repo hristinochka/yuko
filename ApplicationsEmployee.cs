@@ -52,7 +52,7 @@ namespace Diploma
                 MessageBox.Show("Enter value");
                 return;
             }
-            DB.addDataToApplicationsEmployee(textBox1.Text, comboBox1.Text, textBox2.Text, dateTimePicker1.Text);
+            DB.addDataToApplicationsEmployee(textBox1.Text, comboBox1.Text, textBox2.Text, dateTimePicker1.Value);
             loadInfoToTable();
         }
         private void button2_Click(object sender, EventArgs e)
