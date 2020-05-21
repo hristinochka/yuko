@@ -92,7 +92,6 @@ namespace Diploma
             connection.Close();
             return result;
         }
-
         public static List<string> loadDataFromPositionEmployee()
         {
             List<string> result = new List<string>();
@@ -121,20 +120,39 @@ namespace Diploma
             connection.Close();
             return result;
         }
-        public static List<List<string>> loadDataWithFilter()
+
+        public static List<List<string>> loadDataToFilterEmployee()
         {
             List<List<string>> result = new List<List<string>>();
             SqlConnection connection = getConnection();
-            SqlCommand command = new SqlCommand("SELECT id_archive, NameEquip, datestart, dateend FROM Applications JOIN NameOfEquipment ON Equipment.id_nameofequip=NameOfEquipment.id_nameofequip WHERE datestart=@datestart and dateend=@dateend", connection);
+            SqlCommand command = new SqlCommand("SELECT id_applic, NameEquip, applicationdate, dateend FROM Applications JOIN NameOfEquipment ON Applications.id_nameofequip=NameOfEquipment.id_nameofequip", connection);
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
                 result.Add(new List<string>());
-                result[result.Count - 1].Add(reader["id_archive"].ToString());
+                result[result.Count - 1].Add(reader["id_applic"].ToString());
                 result[result.Count - 1].Add(reader["NameEquip"].ToString());
-                result[result.Count - 1].Add(reader["@datestart"].ToString());
-                result[result.Count - 1].Add(reader["@dateend"].ToString());
+                result[result.Count - 1].Add(reader["applicationdate"].ToString());
+                result[result.Count - 1].Add(reader["dateend"].ToString());
+            }
+            connection.Close();
+            return result;
+        }
+        public static List<List<string>> loadDataToFilter2Employee()
+        {
+            List<List<string>> result = new List<List<string>>();
+            SqlConnection connection = getConnection();
+            SqlCommand command = new SqlCommand("SELECT id_applic, NameEquip, applicationdate, dateend FROM Applications JOIN NameOfEquipment ON Applications.id_nameofequip=NameOfEquipment.id_nameofequip", connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                result.Add(new List<string>());
+                result[result.Count - 1].Add(reader["id_applic"].ToString());
+                result[result.Count - 1].Add(reader["NameEquip"].ToString());
+                result[result.Count - 1].Add(reader["applicationdate"].ToString());
+                result[result.Count - 1].Add(reader["dateend"].ToString());
             }
             connection.Close();
             return result;
